@@ -18,7 +18,7 @@ public enum StatusEnum {
 
     public static Optional<StatusEnum> findByStatus(String descricao) {
         return Stream.of(values())
-                .filter(status -> Objects.equals(status.name(), descricao.toUpperCase()))
+                .filter(status -> status.name().equalsIgnoreCase(descricao))
                 .findFirst();
     }
 

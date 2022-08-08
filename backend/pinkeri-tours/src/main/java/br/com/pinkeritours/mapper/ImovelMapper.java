@@ -15,11 +15,9 @@ public interface ImovelMapper {
         return uf.toUpperCase();
     }
 
-    @Mapping(source = "enderecoDTO", target = "endereco")
-    @Mapping(source = "enderecoDTO.uf", target = "endereco.uf", qualifiedByName = "validarUF")
+    @Mapping(source = "endereco.uf", target = "endereco.uf", qualifiedByName = "validarUF")
     ImovelEntity requestDtoToEntity(ImovelRequestDTO requestDTO);
 
-    @Mapping(source = "endereco", target = "enderecoDTO")
     ImovelResponseDTO entityToResponseDTO(ImovelEntity entity);
 
 }

@@ -47,6 +47,6 @@ public class ImovelRequestDTO {
     private String status;
 
     @Valid
-    private EnderecoDTO enderecoDTO;
+    private EnderecoDTO endereco;
 
 }
