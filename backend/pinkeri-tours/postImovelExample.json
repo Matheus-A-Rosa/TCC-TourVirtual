@@ -8,7 +8,7 @@
   "quantidade_banheiro": "2",
   "quantidade_vaga_garagem": "1",
   "descricao": "ap localizada no centro de floripa o coração da cidade",
-  "enderecoDTO": {
+  "endereco": {
     "cep": "88015601",
     "rua": "Rua Almirante Lamego",
     "bairro": "Centro",
