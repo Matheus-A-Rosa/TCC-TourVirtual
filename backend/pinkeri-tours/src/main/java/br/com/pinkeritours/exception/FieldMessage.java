@@ -9,8 +9,8 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public class FieldMessage {
 
-    private final String message;
-    private final String field;
-    private final Object value;
+  private final String message;
+  private final String field;
+  private final Object value;
 
 }

@@ -19,35 +19,43 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImovelService {
 
-    private final ImovelMapper mapper;
-    private final ImovelRepository repository;
-    private final UsuarioRepository usuarioRepository;
+  private final ImovelMapper mapper;
+  private final ImovelRepository repository;
+  private final UsuarioRepository usuarioRepository;
 
-    public ImovelResponseDTO salvar(ImovelRequestDTO requestDTO) {
-        ImovelEntity entity = mapper.requestDtoToEntity(requestDTO);
-        entity.setAtivado(false);
-        entity.setTipo(validaTipoImovel(requestDTO.getTipo()));
-        entity.setTitulo(criarTitulo(requestDTO, requestDTO.getEndereco()));
-        entity.setUsuario(getUsuario(requestDTO));
-        return mapper.entityToResponseDTO(repository.save(entity));
-    }
+  public ImovelResponseDTO salvar(ImovelRequestDTO requestDTO) {
+    ImovelEntity entity = mapper.requestDtoToEntity(requestDTO);
+    entity.setAtivado(false);
+    entity.setTipo(validaTipoImovel(requestDTO.getTipo()));
+    entity.setTitulo(criarTitulo(requestDTO, requestDTO.getEndereco()));
+    entity.setUsuario(validaUsuario(requestDTO.getIdUsuario()));
+    return mapper.entityToResponseDTO(repository.save(entity));
+  }
 
-    private UsuarioEntity getUsuario(ImovelRequestDTO requestDTO) {
-        Long idUsuario = requestDTO.getIdUsuario();
-        return usuarioRepository.findById(idUsuario)
-                .orElseThrow(() -> new NotFoundException(String.format("Usuário %d não encontrado", idUsuario)));
-    }
+  private String validaTipoImovel(String tipoImovel) {
+    return TipoImovelEnum.findByTipoImovel(tipoImovel)
+        .orElseThrow(() -> new ErrorBusinessException(
+            "Tipo imóvel inválido, favor informar se é casa ou apartamento"))
+        .name();
+  }
 
-    private String validaTipoImovel(String tipoImovel) {
-        return TipoImovelEnum.findByTipoImovel(tipoImovel)
-                .orElseThrow(() -> new ErrorBusinessException("Tipo imóvel inválido, favor informar se é casa ou apartamento"))
-                .name();
-    }
+  private String criarTitulo(ImovelRequestDTO imovel, EnderecoDTO endereco) {
+    String status = validaStatus(imovel.getStatus());
+    return String.format("%s %s: %s - %s, %s", status, imovel.getTipo(), endereco.getBairro(),
+        endereco.getCidade(), endereco.getUf());
+  }
 
-    private String criarTitulo(ImovelRequestDTO imovel, EnderecoDTO endereco) {
-        String status = StatusEnum.findByStatus(imovel.getStatus())
-                .orElseThrow(() -> new ErrorBusinessException("Status do imóvel inválido, favor informar se está a venda ou para alugar"))
-                .getDescricao();
-        return String.format("%s %s: %s - %s, %s", status, imovel.getTipo(), endereco.getBairro(), endereco.getCidade(), endereco.getUf());
-    }
+  private static String validaStatus(String status) {
+    return StatusEnum.findByStatus(status)
+        .orElseThrow(() -> new ErrorBusinessException(
+            "Status do imóvel inválido, favor informar se está a venda ou para alugar"))
+        .getDescricao();
+  }
+
+  private UsuarioEntity validaUsuario(Long idUsuario) {
+    return usuarioRepository.findById(idUsuario)
+        .orElseThrow(
+            () -> new NotFoundException(String.format("Usuário %d não encontrado", idUsuario)));
+  }
+
 }

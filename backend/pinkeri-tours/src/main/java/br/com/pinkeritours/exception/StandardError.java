@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StandardError {
 
-    private final int status;
-    private final String message;
+  private final int status;
+  private final String message;
 
 }

@@ -1,20 +1,19 @@
 package br.com.pinkeritours.enumeration;
 
-import lombok.Getter;
-
 import java.util.Optional;
 import java.util.stream.Stream;
+import lombok.Getter;
 
 @Getter
 public enum TipoImovelEnum {
 
-    CASA,
-    APARTAMENTO;
+  CASA,
+  APARTAMENTO;
 
-    public static Optional<TipoImovelEnum> findByTipoImovel(String tipo) {
-        return Stream.of(values())
-                .filter(status -> status.name().equalsIgnoreCase(tipo))
-                .findFirst();
-    }
+  public static Optional<TipoImovelEnum> findByTipoImovel(String tipo) {
+    return Stream.of(values())
+        .filter(status -> status.name().equalsIgnoreCase(tipo))
+        .findFirst();
+  }
 
 }
