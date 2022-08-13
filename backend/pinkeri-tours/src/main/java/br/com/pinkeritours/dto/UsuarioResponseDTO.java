@@ -1,8 +1,11 @@
 package br.com.pinkeritours.dto;
 
-import lombok.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,11 +15,11 @@ import java.util.List;
 @Builder
 public class UsuarioResponseDTO {
 
-    private Long id;
-    private String nome;
-    private String email;
-    private String telefone;
-    private String senha;
-    private List<ImovelResponseDTO> imoveis;
+  private Long id;
+  private String nome;
+  private String email;
+  private String telefone;
+  private String senha;
+//  private List<ImovelResponseDTO> imoveis;
 
 }
