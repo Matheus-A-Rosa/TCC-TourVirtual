@@ -6,6 +6,7 @@ import static javax.persistence.CascadeType.REMOVE;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,10 +49,10 @@ public class ImovelEntity {
   private String status;
   private Boolean ativado;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "id_usuario")
   private UsuarioEntity usuario;
-  @OneToOne(cascade = {PERSIST, REMOVE, MERGE})
+  @OneToOne(cascade = {PERSIST, REMOVE, MERGE}, fetch = FetchType.LAZY)
   @JoinColumn(name = "id_endereco")
   private EnderecoEntity endereco;
 

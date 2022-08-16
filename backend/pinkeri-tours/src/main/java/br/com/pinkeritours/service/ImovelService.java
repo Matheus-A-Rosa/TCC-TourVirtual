@@ -63,6 +63,11 @@ public class ImovelService {
   }
 
   public Page<ImovelResponseDTO> listar(Pageable pageable) {
-    return mapper.toPageResponseDto(repository.findAll(pageable));
+    return mapper.toPageResponseDto(repository.listar(pageable));
+  }
+
+  public ImovelResponseDTO buscarPorId(Long id) {
+    return mapper.entityToResponseDTO(repository.findById(id)
+        .orElseThrow(() -> new NotFoundException(String.format("Imóvel %d não encontrado", id))));
   }
 }
