@@ -3,6 +3,9 @@ package br.com.pinkeritours.service;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelEntity;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelRequestDTO;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelResponseDTO;
+import static br.com.pinkeritours.uttils.ImovelUtils.getPageImovelEntity;
+import static br.com.pinkeritours.uttils.ImovelUtils.getPageImovelResponseDTO;
+import static br.com.pinkeritours.uttils.ImovelUtils.getPageable;
 import static br.com.pinkeritours.uttils.UsuarioUtils.getUsuarioEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -102,5 +105,45 @@ class ImovelServiceTest {
     assertThatThrownBy(() -> service.salvar(requestDTO))
         .isInstanceOf(NotFoundException.class)
         .hasMessage(String.format("Usuário %d não encontrado", 1L));
+  }
+
+  @Test
+  void quandoListarImovel_retornaSucesso() {
+    when(repository.listar(any()))
+        .thenReturn(getPageImovelEntity());
+    when(mapper.toPageResponseDto(any()))
+        .thenReturn(getPageImovelResponseDTO());
+
+    assertThat(service.listar(getPageable()))
+        .isNotNull()
+        .hasSize(1);
+  }
+
+  @Test
+  void quandoBuscarImovelPorId_retornaErroNotFoundException() {
+    Long id = anyLong();
+
+    when(repository.findById(id))
+        .thenReturn(Optional.empty());
+
+    assertThatThrownBy(() -> service.buscarPorId(id))
+        .isInstanceOf(NotFoundException.class)
+        .hasMessage(String.format("Imóvel %d não encontrado", id));
+  }
+
+  @Test
+  void quandoBuscarImovelPorId_retornaSucesso() {
+    Long id = anyLong();
+    ImovelEntity entity = getImovelEntity();
+    ImovelResponseDTO responseDTO = getImovelResponseDTO();
+
+    when(repository.findById(id))
+        .thenReturn(Optional.of(entity));
+    when(mapper.entityToResponseDTO(any(ImovelEntity.class)))
+        .thenReturn(responseDTO);
+
+    assertThat(service.buscarPorId(id))
+        .isNotNull()
+        .isEqualTo(responseDTO);
   }
 }
