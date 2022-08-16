@@ -13,6 +13,9 @@ import br.com.pinkeritours.mapper.ImovelMapper;
 import br.com.pinkeritours.repository.ImovelRepository;
 import br.com.pinkeritours.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.text.WordUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -41,11 +44,12 @@ public class ImovelService {
 
   private String criarTitulo(ImovelRequestDTO imovel, EnderecoDTO endereco) {
     String status = validaStatus(imovel.getStatus());
-    return String.format("%s %s: %s - %s, %s", status, imovel.getTipo(), endereco.getBairro(),
-        endereco.getCidade(), endereco.getUf());
+    String titulo = String.format("%s %s: %s - %s, %s", status, imovel.getTipo(),
+        endereco.getBairro(), endereco.getCidade(), endereco.getUf().toUpperCase());
+    return WordUtils.capitalize(titulo);
   }
 
-  private static String validaStatus(String status) {
+  private String validaStatus(String status) {
     return StatusEnum.findByStatus(status)
         .orElseThrow(() -> new ErrorBusinessException(
             "Status do imóvel inválido, favor informar se está a venda ou para alugar"))
@@ -58,4 +62,7 @@ public class ImovelService {
             () -> new NotFoundException(String.format("Usuário %d não encontrado", idUsuario)));
   }
 
+  public Page<ImovelResponseDTO> listar(Pageable pageable) {
+    return mapper.toPageResponseDto(repository.findAll(pageable));
+  }
 }

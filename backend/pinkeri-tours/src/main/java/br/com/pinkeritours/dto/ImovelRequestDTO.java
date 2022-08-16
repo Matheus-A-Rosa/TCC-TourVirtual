@@ -26,23 +26,23 @@ public class ImovelRequestDTO {
   private String tipo;
 
   @JsonProperty("area_total")
-  @NotBlank(message = "campo area_total é obrigatório")
-  private String areaTotal;
+  @NotNull(message = "campo area_total é obrigatório")
+  private Double areaTotal;
 
   @NotNull(message = "campo valor é obrigatório")
   private Double valor;
 
   @JsonProperty("quantidade_quarto")
-  @NotBlank(message = "campo quantidade_quarto é obrigatório")
-  private String quantidadeQuartos;
+  @NotNull(message = "campo quantidade_quarto é obrigatório")
+  private Integer quantidadeQuartos;
 
   @JsonProperty("quantidade_banheiro")
-  @NotBlank(message = "campo quantidade_banheiro é obrigatório")
-  private String quantidadeBanheiros;
+  @NotNull(message = "campo quantidade_banheiro é obrigatório")
+  private Integer quantidadeBanheiros;
 
   @JsonProperty("quantidade_vaga_garagem")
-  @NotBlank(message = "campo quantidade_vaga_garagem é obrigatório")
-  private String quantidadeVagasGaragem;
+  @NotNull(message = "campo quantidade_vaga_garagem é obrigatório")
+  private Integer quantidadeVagasGaragem;
 
   @NotBlank(message = "campo descricao é obrigatório")
   private String descricao;
