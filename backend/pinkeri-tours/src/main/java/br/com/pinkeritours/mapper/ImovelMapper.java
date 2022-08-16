@@ -7,6 +7,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.data.domain.Page;
 
 @Mapper(componentModel = "spring")
 public interface ImovelMapper {
@@ -23,4 +24,7 @@ public interface ImovelMapper {
 
   List<ImovelResponseDTO> entityListToResponseDTO(List<ImovelEntity> entityList);
 
+  default Page<ImovelResponseDTO> toPageResponseDto(Page<ImovelEntity> entities) {
+    return entities.map(this::entityToResponseDTO);
+  }
 }
