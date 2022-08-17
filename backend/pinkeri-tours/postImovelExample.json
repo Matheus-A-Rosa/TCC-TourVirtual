@@ -1,0 +1,19 @@
+{
+  "id_usuario": 1,
+  "status": "aluguel",
+  "tipo": "apartamento",
+  "area_total": "4000",
+  "valor": 1000000.0 ,
+  "quantidade_quarto": "2",
+  "quantidade_banheiro": "2",
+  "quantidade_vaga_garagem": "1",
+  "descricao": "ap localizada no centro de floripa o coração da cidade",
+  "endereco": {
+    "cep": "88015601",
+    "rua": "Rua Almirante Lamego",
+    "bairro": "Centro",
+    "cidade": "Florianópolis",
+    "uf": "SC",
+    "complemento": "número 943 apto 504"
+  }
+}
