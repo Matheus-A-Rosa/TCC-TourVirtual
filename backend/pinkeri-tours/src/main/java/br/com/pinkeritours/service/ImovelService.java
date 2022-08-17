@@ -26,6 +26,23 @@ public class ImovelService {
   private final ImovelRepository repository;
   private final UsuarioRepository usuarioRepository;
 
+  public Page<ImovelResponseDTO> listar(Pageable pageable) {
+    return mapper.toPageResponseDto(repository.listar(pageable));
+  }
+
+  public ImovelResponseDTO buscarPorId(Long id) {
+    return mapper.entityToResponseDTO(repository.findById(id)
+        .orElseThrow(() -> new NotFoundException(String.format("Imóvel %d não encontrado", id))));
+  }
+
+  public Page<ImovelResponseDTO> buscar(Pageable pageable, String tipo, String status) {
+    return mapper.toPageResponseDto(
+        repository.buscarPorTipoImovelStatus(pageable,
+            validaTipoImovel(tipo),
+            validaStatus(status).name())
+    );
+  }
+
   public ImovelResponseDTO salvar(ImovelRequestDTO requestDTO) {
     ImovelEntity entity = mapper.requestDtoToEntity(requestDTO);
     entity.setAtivado(false);
@@ -43,31 +60,21 @@ public class ImovelService {
   }
 
   private String criarTitulo(ImovelRequestDTO imovel, EnderecoDTO endereco) {
-    String status = validaStatus(imovel.getStatus());
+    String status = validaStatus(imovel.getStatus()).getDescricao();
     String titulo = String.format("%s %s: %s - %s, %s", status, imovel.getTipo(),
         endereco.getBairro(), endereco.getCidade(), endereco.getUf().toUpperCase());
     return WordUtils.capitalize(titulo);
   }
 
-  private String validaStatus(String status) {
+  private StatusEnum validaStatus(String status) {
     return StatusEnum.findByStatus(status)
         .orElseThrow(() -> new ErrorBusinessException(
-            "Status do imóvel inválido, favor informar se está a venda ou para alugar"))
-        .getDescricao();
+            "Status do imóvel inválido, favor informar se está a venda ou para alugar"));
   }
 
   private UsuarioEntity validaUsuario(Long idUsuario) {
     return usuarioRepository.findById(idUsuario)
         .orElseThrow(
             () -> new NotFoundException(String.format("Usuário %d não encontrado", idUsuario)));
-  }
-
-  public Page<ImovelResponseDTO> listar(Pageable pageable) {
-    return mapper.toPageResponseDto(repository.listar(pageable));
-  }
-
-  public ImovelResponseDTO buscarPorId(Long id) {
-    return mapper.entityToResponseDTO(repository.findById(id)
-        .orElseThrow(() -> new NotFoundException(String.format("Imóvel %d não encontrado", id))));
   }
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/imoveis")
+@RequestMapping(path = "/v1/imoveis")
 @RequiredArgsConstructor
 public class ImovelController {
 
@@ -47,6 +47,18 @@ public class ImovelController {
     return ResponseEntity
         .status(OK)
         .body(service.buscarPorId(id));
+  }
+
+  @GetMapping(path = "/busca_personalizada")
+  public ResponseEntity<Page<ImovelResponseDTO>> buscar(
+      @RequestParam int page,
+      @RequestParam int size,
+      @RequestParam String tipo,
+      @RequestParam String status
+  ) {
+    return ResponseEntity
+        .status(OK)
+        .body(service.buscar(PageRequest.of(page, size, ASC, "id"), tipo, status));
   }
 
 }
