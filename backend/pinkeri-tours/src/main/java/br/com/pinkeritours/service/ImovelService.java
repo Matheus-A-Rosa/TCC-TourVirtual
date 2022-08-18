@@ -12,6 +12,7 @@ import br.com.pinkeritours.exception.NotFoundException;
 import br.com.pinkeritours.mapper.ImovelMapper;
 import br.com.pinkeritours.repository.ImovelRepository;
 import br.com.pinkeritours.repository.UsuarioRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.text.WordUtils;
 import org.springframework.data.domain.Page;
@@ -41,6 +42,11 @@ public class ImovelService {
             validaTipoImovel(tipo),
             validaStatus(status).name())
     );
+  }
+
+  public List<ImovelResponseDTO> buscar(String tipo, String status) {
+    return mapper.entityListToResponseDTO(
+        repository.find(validaTipoImovel(tipo), validaStatus(status).name(), "", ""));
   }
 
   public ImovelResponseDTO salvar(ImovelRequestDTO requestDTO) {

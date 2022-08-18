@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 @WebMvcTest(ImovelController.class)
 class ImovelControllerTest {
 
-  private static final String URL = "/imoveis";
+  private static final String URL = "/v1/imoveis";
 
   private final ObjectMapper jsonMapper = new ObjectMapper();
 

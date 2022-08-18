@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Repository
-public interface ImovelRepository extends JpaRepository<ImovelEntity, Long> {
+public interface ImovelRepository
+    extends JpaRepository<ImovelEntity, Long>, CustomImovelRepository {
 
   @Query(value = "from ImovelEntity i join fetch i.endereco",
       countQuery = "select count(i) from ImovelEntity i")

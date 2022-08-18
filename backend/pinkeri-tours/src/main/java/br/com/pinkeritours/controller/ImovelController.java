@@ -7,6 +7,7 @@ import static org.springframework.http.HttpStatus.OK;
 import br.com.pinkeritours.dto.ImovelRequestDTO;
 import br.com.pinkeritours.dto.ImovelResponseDTO;
 import br.com.pinkeritours.service.ImovelService;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -59,6 +60,13 @@ public class ImovelController {
     return ResponseEntity
         .status(OK)
         .body(service.buscar(PageRequest.of(page, size, ASC, "id"), tipo, status));
+  }
+  @GetMapping(path = "/busca")
+  public ResponseEntity<List<ImovelResponseDTO>> buscar(
+      @RequestParam String tipo, @RequestParam String status) {
+    return ResponseEntity
+        .status(OK)
+        .body(service.buscar(tipo, status));
   }
 
 }
