@@ -61,12 +61,18 @@ public class ImovelController {
         .status(OK)
         .body(service.buscar(PageRequest.of(page, size, ASC, "id"), tipo, status));
   }
+
   @GetMapping(path = "/busca")
   public ResponseEntity<List<ImovelResponseDTO>> buscar(
-      @RequestParam String tipo, @RequestParam String status) {
+      @RequestParam String tipo,
+      @RequestParam String status,
+      @RequestParam(required = false) String cidade,
+      @RequestParam(required = false) String bairro,
+      @RequestParam(required = false) Double valorInicial,
+      @RequestParam(required = false) Double valorFinal) {
     return ResponseEntity
         .status(OK)
-        .body(service.buscar(tipo, status));
+        .body(service.buscar(tipo, status, cidade, bairro, valorInicial, valorFinal));
   }
 
 }

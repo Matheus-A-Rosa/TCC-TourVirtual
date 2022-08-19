@@ -9,21 +9,16 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = EnderecoMapper.class)
 public interface ImovelMapper {
 
-  @Named("validarUF")
-  static String validarUF(String uf) {
-    return uf.toUpperCase();
-  }
-
-  @Named("validarStatus")
-  static String validarStatus(String status) {
+  @Named("converterStatusToUpperCase")
+  static String converterStatusToUpperCase(String status) {
     return status.toUpperCase();
   }
 
-  @Mapping(source = "endereco.uf", target = "endereco.uf", qualifiedByName = "validarUF")
-  @Mapping(source = "status", target = "status", qualifiedByName = "validarStatus")
+  @Mapping(source = "status", target = "status", qualifiedByName = "converterStatusToUpperCase")
+  @Mapping(source = "descricao", target = "descricao", qualifiedByName = "removerAcentoString")
   ImovelEntity requestDtoToEntity(ImovelRequestDTO requestDTO);
 
   ImovelResponseDTO entityToResponseDTO(ImovelEntity entity);

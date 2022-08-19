@@ -5,5 +5,6 @@ import java.util.List;
 
 public interface CustomImovelRepository {
 
-  List<ImovelEntity> find(String tipo, String status, String cidade, String bairro);
+  List<ImovelEntity> find(String tipo, String status, String cidade, String bairro,
+      Double valorInicial, Double valorFinal);
 }

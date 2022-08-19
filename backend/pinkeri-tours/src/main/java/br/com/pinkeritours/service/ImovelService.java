@@ -39,30 +39,33 @@ public class ImovelService {
   public Page<ImovelResponseDTO> buscar(Pageable pageable, String tipo, String status) {
     return mapper.toPageResponseDto(
         repository.buscarPorTipoImovelStatus(pageable,
-            validaTipoImovel(tipo),
+            validaTipoImovel(tipo).name(),
             validaStatus(status).name())
     );
   }
 
-  public List<ImovelResponseDTO> buscar(String tipo, String status) {
+  public List<ImovelResponseDTO> buscar(String tipo, String status, String cidade, String bairro,
+      Double valorInicial, Double valorFinal) {
+    TipoImovelEnum tipoImovelEnum = validaTipoImovel(tipo);
+    StatusEnum statusEnum = validaStatus(status);
     return mapper.entityListToResponseDTO(
-        repository.find(validaTipoImovel(tipo), validaStatus(status).name(), "", ""));
+        repository.find(tipoImovelEnum.name(), statusEnum.name(), cidade, bairro,
+            valorInicial, valorFinal));
   }
 
   public ImovelResponseDTO salvar(ImovelRequestDTO requestDTO) {
     ImovelEntity entity = mapper.requestDtoToEntity(requestDTO);
     entity.setAtivado(false);
-    entity.setTipo(validaTipoImovel(requestDTO.getTipo()));
+    entity.setTipo(validaTipoImovel(requestDTO.getTipo()).name());
     entity.setTitulo(criarTitulo(requestDTO, requestDTO.getEndereco()));
     entity.setUsuario(validaUsuario(requestDTO.getIdUsuario()));
     return mapper.entityToResponseDTO(repository.save(entity));
   }
 
-  private String validaTipoImovel(String tipoImovel) {
+  private TipoImovelEnum validaTipoImovel(String tipoImovel) {
     return TipoImovelEnum.findByTipoImovel(tipoImovel)
         .orElseThrow(() -> new ErrorBusinessException(
-            "Tipo imóvel inválido, favor informar se é casa ou apartamento"))
-        .name();
+            "Tipo imóvel inválido, favor informar se é casa ou apartamento"));
   }
 
   private String criarTitulo(ImovelRequestDTO imovel, EnderecoDTO endereco) {
