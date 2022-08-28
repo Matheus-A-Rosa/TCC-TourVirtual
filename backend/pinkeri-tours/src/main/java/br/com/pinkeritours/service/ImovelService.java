@@ -12,10 +12,9 @@ import br.com.pinkeritours.exception.NotFoundException;
 import br.com.pinkeritours.mapper.ImovelMapper;
 import br.com.pinkeritours.repository.ImovelRepository;
 import br.com.pinkeritours.repository.UsuarioRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.text.WordUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -26,48 +25,51 @@ public class ImovelService {
   private final ImovelRepository repository;
   private final UsuarioRepository usuarioRepository;
 
+  public ImovelResponseDTO buscarPorId(Long id) {
+    return mapper.entityToResponseDTO(repository.findById(id)
+        .orElseThrow(() -> new NotFoundException(String.format("Imóvel %d não encontrado", id))));
+  }
+
+  public List<ImovelResponseDTO> buscar(String tipo, String status, String cidade, String bairro,
+      Double valorInicial, Double valorFinal) {
+    TipoImovelEnum tipoImovelEnum = validaTipoImovel(tipo);
+    StatusEnum statusEnum = validaStatus(status);
+    return mapper.entityListToResponseDTO(
+        repository.find(tipoImovelEnum.name(), statusEnum.name(), cidade, bairro,
+            valorInicial, valorFinal));
+  }
+
   public ImovelResponseDTO salvar(ImovelRequestDTO requestDTO) {
     ImovelEntity entity = mapper.requestDtoToEntity(requestDTO);
     entity.setAtivado(false);
-    entity.setTipo(validaTipoImovel(requestDTO.getTipo()));
+    entity.setTipo(validaTipoImovel(requestDTO.getTipo()).name());
     entity.setTitulo(criarTitulo(requestDTO, requestDTO.getEndereco()));
     entity.setUsuario(validaUsuario(requestDTO.getIdUsuario()));
     return mapper.entityToResponseDTO(repository.save(entity));
   }
 
-  private String validaTipoImovel(String tipoImovel) {
+  private TipoImovelEnum validaTipoImovel(String tipoImovel) {
     return TipoImovelEnum.findByTipoImovel(tipoImovel)
         .orElseThrow(() -> new ErrorBusinessException(
-            "Tipo imóvel inválido, favor informar se é casa ou apartamento"))
-        .name();
+            "Tipo imóvel inválido, favor informar se é casa ou apartamento"));
   }
 
   private String criarTitulo(ImovelRequestDTO imovel, EnderecoDTO endereco) {
-    String status = validaStatus(imovel.getStatus());
+    String status = validaStatus(imovel.getStatus()).getDescricao();
     String titulo = String.format("%s %s: %s - %s, %s", status, imovel.getTipo(),
         endereco.getBairro(), endereco.getCidade(), endereco.getUf().toUpperCase());
     return WordUtils.capitalize(titulo);
   }
 
-  private String validaStatus(String status) {
+  private StatusEnum validaStatus(String status) {
     return StatusEnum.findByStatus(status)
         .orElseThrow(() -> new ErrorBusinessException(
-            "Status do imóvel inválido, favor informar se está a venda ou para alugar"))
-        .getDescricao();
+            "Status do imóvel inválido, favor informar se está a venda ou para alugar"));
   }
 
   private UsuarioEntity validaUsuario(Long idUsuario) {
     return usuarioRepository.findById(idUsuario)
         .orElseThrow(
             () -> new NotFoundException(String.format("Usuário %d não encontrado", idUsuario)));
-  }
-
-  public Page<ImovelResponseDTO> listar(Pageable pageable) {
-    return mapper.toPageResponseDto(repository.listar(pageable));
-  }
-
-  public ImovelResponseDTO buscarPorId(Long id) {
-    return mapper.entityToResponseDTO(repository.findById(id)
-        .orElseThrow(() -> new NotFoundException(String.format("Imóvel %d não encontrado", id))));
   }
 }
