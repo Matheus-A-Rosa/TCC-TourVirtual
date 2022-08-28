@@ -3,24 +3,26 @@ package br.com.pinkeritours.service;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelEntity;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelRequestDTO;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelResponseDTO;
-import static br.com.pinkeritours.uttils.ImovelUtils.getPageImovelEntity;
-import static br.com.pinkeritours.uttils.ImovelUtils.getPageImovelResponseDTO;
-import static br.com.pinkeritours.uttils.ImovelUtils.getPageable;
 import static br.com.pinkeritours.uttils.UsuarioUtils.getUsuarioEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyDouble;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import br.com.pinkeritours.dto.ImovelRequestDTO;
 import br.com.pinkeritours.dto.ImovelResponseDTO;
+import br.com.pinkeritours.entity.EnderecoEntity;
 import br.com.pinkeritours.entity.ImovelEntity;
 import br.com.pinkeritours.exception.ErrorBusinessException;
 import br.com.pinkeritours.exception.NotFoundException;
 import br.com.pinkeritours.mapper.ImovelMapper;
 import br.com.pinkeritours.repository.ImovelRepository;
 import br.com.pinkeritours.repository.UsuarioRepository;
+import br.com.pinkeritours.uttils.ImovelUtils;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -108,18 +110,6 @@ class ImovelServiceTest {
   }
 
   @Test
-  void quandoListarImovel_retornaSucesso() {
-    when(repository.listar(any()))
-        .thenReturn(getPageImovelEntity());
-    when(mapper.toPageResponseDto(any()))
-        .thenReturn(getPageImovelResponseDTO());
-
-    assertThat(service.listar(getPageable()))
-        .isNotNull()
-        .hasSize(1);
-  }
-
-  @Test
   void quandoBuscarImovelPorId_retornaErroNotFoundException() {
     Long id = anyLong();
 
@@ -145,5 +135,22 @@ class ImovelServiceTest {
     assertThat(service.buscarPorId(id))
         .isNotNull()
         .isEqualTo(responseDTO);
+  }
+
+  @Test
+  void quandoBuscar_retornaSucesso() {
+    ImovelEntity entity = getImovelEntity();
+    EnderecoEntity endereco = entity.getEndereco();
+
+    when(repository.find(anyString(), anyString(), anyString(), anyString(), anyDouble(),
+        anyDouble()))
+        .thenReturn(ImovelUtils.getListImovelEntity());
+    when(mapper.entityListToResponseDTO(anyList()))
+        .thenReturn(ImovelUtils.getListImovelResponseDTO());
+
+    assertThat(service.buscar(entity.getTipo(), entity.getStatus(), endereco.getCidade(),
+        endereco.getBairro(), 1000.0, 4000.0))
+        .isNotNull()
+        .hasSize(1);
   }
 }

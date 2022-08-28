@@ -6,16 +6,16 @@ import static org.springframework.data.domain.Sort.Direction.ASC;
 import br.com.pinkeritours.dto.EnderecoDTO;
 import br.com.pinkeritours.dto.ImovelRequestDTO;
 import br.com.pinkeritours.dto.ImovelResponseDTO;
+import br.com.pinkeritours.entity.EnderecoEntity;
 import br.com.pinkeritours.entity.ImovelEntity;
 import java.util.List;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 public abstract class ImovelUtils {
 
   private static final EnderecoDTO enderecoDTO = EnderecoUtils.getEnderecoDTO();
+  private static final EnderecoEntity enderecoEntity = EnderecoUtils.getEnderecoEntity();
 
   public static ImovelRequestDTO getImovelRequestDTO() {
     return ImovelRequestDTO.builder()
@@ -42,7 +42,7 @@ public abstract class ImovelUtils {
         .quantidadeVagasGaragem("1")
         .descricao("teste teste teste")
         .status("venda")
-        .endereco(null)
+        .endereco(enderecoEntity)
         .build();
   }
 
@@ -62,24 +62,12 @@ public abstract class ImovelUtils {
         .build();
   }
 
-  private static List<ImovelResponseDTO> getListImovelResponseDTO() {
+  public static List<ImovelResponseDTO> getListImovelResponseDTO() {
     return singletonList(getImovelResponseDTO());
   }
 
   public static List<ImovelEntity> getListImovelEntity() {
     return singletonList(getImovelEntity());
-  }
-
-  public static Pageable getPageable() {
-    return PageRequest.of(0, 1, ASC, "id");
-  }
-
-  public static Page<ImovelResponseDTO> getPageImovelResponseDTO() {
-    return new PageImpl<>(getListImovelResponseDTO(), getPageable(), 1L);
-  }
-
-  public static Page<ImovelEntity> getPageImovelEntity() {
-    return new PageImpl<>(getListImovelEntity(), getPageable(), 1L);
   }
 
 }

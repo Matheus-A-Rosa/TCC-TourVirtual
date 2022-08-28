@@ -43,8 +43,12 @@ class ImovelControllerTest {
   void quandoListar_retornaSucesso() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = get(URL)
         .contentType(APPLICATION_JSON)
-        .param("page", "0")
-        .param("size", "1");
+        .param("tipo", "casa")
+        .param("status", "venda")
+        .param("cidade", "florianopolis")
+        .param("bairro", "centro")
+        .param("valorInicial", "400000.0")
+        .param("valorFinal", "750000.0");
 
     mockMvc.perform(requestBuilder)
         .andExpect(status().isOk());

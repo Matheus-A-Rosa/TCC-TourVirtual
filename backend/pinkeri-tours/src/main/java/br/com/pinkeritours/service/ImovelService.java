@@ -15,8 +15,6 @@ import br.com.pinkeritours.repository.UsuarioRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.text.WordUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -27,21 +25,9 @@ public class ImovelService {
   private final ImovelRepository repository;
   private final UsuarioRepository usuarioRepository;
 
-  public Page<ImovelResponseDTO> listar(Pageable pageable) {
-    return mapper.toPageResponseDto(repository.listar(pageable));
-  }
-
   public ImovelResponseDTO buscarPorId(Long id) {
     return mapper.entityToResponseDTO(repository.findById(id)
         .orElseThrow(() -> new NotFoundException(String.format("Imóvel %d não encontrado", id))));
-  }
-
-  public Page<ImovelResponseDTO> buscar(Pageable pageable, String tipo, String status) {
-    return mapper.toPageResponseDto(
-        repository.buscarPorTipoImovelStatus(pageable,
-            validaTipoImovel(tipo).name(),
-            validaStatus(status).name())
-    );
   }
 
   public List<ImovelResponseDTO> buscar(String tipo, String status, String cidade, String bairro,

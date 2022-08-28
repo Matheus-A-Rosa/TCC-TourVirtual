@@ -12,7 +12,7 @@ public abstract class EnderecoUtils {
         .bairro("centro")
         .cidade("florianopolis")
         .uf("SC")
-        .complemento("numero 943, apto 504")
+        .complemento("numero 943")
         .build();
   }
 
@@ -24,7 +24,7 @@ public abstract class EnderecoUtils {
         .bairro("centro")
         .cidade("florianopolis")
         .uf("SC")
-        .complemento("numero 943, apto 504")
+        .complemento("numero 943")
         .build();
   }
 
