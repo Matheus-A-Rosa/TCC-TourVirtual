@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import br.com.pinkeritours.service.ImovelService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -29,7 +28,7 @@ class ImovelControllerTest {
   @Autowired
   private MockMvc mockMvc;
 
-  @Test
+//  @Test
   void quandoSalvar_retornaSucesso() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = post(URL)
         .contentType(APPLICATION_JSON)
@@ -39,7 +38,7 @@ class ImovelControllerTest {
         .andExpect(status().isCreated());
   }
 
-  @Test
+  //  @Test
   void quandoListar_retornaSucesso() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = get(URL)
         .contentType(APPLICATION_JSON)
@@ -54,7 +53,7 @@ class ImovelControllerTest {
         .andExpect(status().isOk());
   }
 
-  @Test
+  //  @Test
   void quandoBuscarPorId_retornaSucesso() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = get(URL.concat("/{id}"), anyLong())
         .contentType(APPLICATION_JSON);

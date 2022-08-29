@@ -11,7 +11,6 @@ import br.com.pinkeritours.exception.ErrorBusinessException;
 import br.com.pinkeritours.exception.NotFoundException;
 import br.com.pinkeritours.mapper.ImovelMapper;
 import br.com.pinkeritours.repository.ImovelRepository;
-import br.com.pinkeritours.repository.UsuarioRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.text.WordUtils;
@@ -23,7 +22,7 @@ public class ImovelService {
 
   private final ImovelMapper mapper;
   private final ImovelRepository repository;
-  private final UsuarioRepository usuarioRepository;
+  private final UsuarioService usuarioService;
 
   public ImovelResponseDTO buscarPorId(Long id) {
     return mapper.entityToResponseDTO(repository.findById(id)
@@ -68,8 +67,6 @@ public class ImovelService {
   }
 
   private UsuarioEntity validaUsuario(Long idUsuario) {
-    return usuarioRepository.findById(idUsuario)
-        .orElseThrow(
-            () -> new NotFoundException(String.format("Usuário %d não encontrado", idUsuario)));
+    return usuarioService.findById(idUsuario);
   }
 }
