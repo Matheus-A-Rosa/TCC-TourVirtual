@@ -3,6 +3,9 @@ package br.com.pinkeritours.service;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelEntity;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelRequestDTO;
 import static br.com.pinkeritours.uttils.ImovelUtils.getImovelResponseDTO;
+import static br.com.pinkeritours.uttils.ImovelUtils.getPageImovelEntity;
+import static br.com.pinkeritours.uttils.ImovelUtils.getPageImovelResponseDTO;
+import static br.com.pinkeritours.uttils.ImovelUtils.getPageable;
 import static br.com.pinkeritours.uttils.UsuarioUtils.getUsuarioEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -28,6 +31,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class ImovelServiceTest {
@@ -149,6 +153,23 @@ class ImovelServiceTest {
 
     assertThat(service.buscar(entity.getTipo(), entity.getStatus(), endereco.getCidade(),
         endereco.getBairro(), 1000.0, 4000.0))
+        .isNotNull()
+        .hasSize(1);
+  }
+
+  @Test
+  void quandoBuscarImovelPorUsuario_retornaSucesso() {
+    Long idUsuario = anyLong();
+    Pageable pageable = getPageable();
+
+    when(usuarioService.findById(idUsuario))
+        .thenReturn(getUsuarioEntity());
+    when(repository.buscarPorUsuario(pageable, idUsuario))
+        .thenReturn(getPageImovelEntity());
+    when(mapper.toPageResponseDto(any()))
+        .thenReturn(getPageImovelResponseDTO());
+
+    assertThat(service.buscarPorUsuario(pageable, idUsuario))
         .isNotNull()
         .hasSize(1);
   }

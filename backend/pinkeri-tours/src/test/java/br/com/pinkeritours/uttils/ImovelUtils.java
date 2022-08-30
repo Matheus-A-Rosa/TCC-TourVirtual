@@ -9,6 +9,8 @@ import br.com.pinkeritours.dto.ImovelResponseDTO;
 import br.com.pinkeritours.entity.EnderecoEntity;
 import br.com.pinkeritours.entity.ImovelEntity;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -68,6 +70,18 @@ public abstract class ImovelUtils {
 
   public static List<ImovelEntity> getListImovelEntity() {
     return singletonList(getImovelEntity());
+  }
+
+  public static Pageable getPageable() {
+    return PageRequest.of(0, 1, ASC, "id");
+  }
+
+  public static Page<ImovelResponseDTO> getPageImovelResponseDTO() {
+    return new PageImpl<>(getListImovelResponseDTO(), getPageable(), 1L);
+  }
+
+  public static Page<ImovelEntity> getPageImovelEntity() {
+    return new PageImpl<>(getListImovelEntity(), getPageable(), 1L);
   }
 
 }

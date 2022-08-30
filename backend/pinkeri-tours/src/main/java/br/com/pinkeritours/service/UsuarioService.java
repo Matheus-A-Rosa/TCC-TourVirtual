@@ -33,8 +33,7 @@ public class UsuarioService implements UserDetailsService {
 
   public UsuarioEntity findById(Long id) {
     return repository.findById(id)
-        .orElseThrow(
-            () -> new NotFoundException(String.format("Usuário %d não encontrado", id)));
+        .orElseThrow(() -> new NotFoundException(String.format("Usuário %d não encontrado", id)));
   }
 
   public UsuarioResponseDTO registrar(UsuarioRequestDTO requestDTO) {

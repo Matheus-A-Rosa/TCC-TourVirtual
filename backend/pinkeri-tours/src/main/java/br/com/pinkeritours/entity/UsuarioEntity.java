@@ -4,13 +4,11 @@ import static br.com.pinkeritours.enumeration.RoleNameEnum.ROLE_USER;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,9 +36,6 @@ public class UsuarioEntity implements UserDetails {
   private String email;
   private String telefone;
   private String senha;
-
-  @OneToMany(mappedBy = "usuario")
-  private List<ImovelEntity> imoveis;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
