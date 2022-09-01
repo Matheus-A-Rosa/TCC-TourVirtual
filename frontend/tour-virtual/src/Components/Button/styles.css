@@ -1,0 +1,19 @@
+button {
+    position: relative;
+    text-align: center;
+    width: 13rem;
+    font-size: 1.3rem;
+    color: #FFFFFF;
+    border: 0.2rem solid #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+    border-radius: 5rem;
+   background: transparent;
+   transition: filter 0.3s;
+
+}
+
+button:hover {
+    filter: brightness(0.2);
+}
