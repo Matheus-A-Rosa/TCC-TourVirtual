@@ -1,5 +1,6 @@
 package br.com.pinkeritours.controller;
 
+import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -9,7 +10,10 @@ import br.com.pinkeritours.service.ImovelService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/v1/imoveis")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 public class ImovelController {
 
@@ -50,6 +55,15 @@ public class ImovelController {
     return ResponseEntity
         .status(OK)
         .body(service.buscar(tipo, status, cidade, bairro, valorInicial, valorFinal));
+  }
+
+  @GetMapping(path = "/usuario/{id}")
+  public ResponseEntity<Page<ImovelResponseDTO>> buscarPorUsuario(@PathVariable Long id,
+      @RequestParam int page,
+      @RequestParam int size) {
+    return ResponseEntity
+        .status(OK)
+        .body(service.buscarPorUsuario(PageRequest.of(page, size, ASC, "id"), id));
   }
 
 }
