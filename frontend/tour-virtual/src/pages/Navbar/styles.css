@@ -15,10 +15,27 @@ li {
 }
 nav a {
   text-decoration: none;
-  color: #FFFFFF;
-  position: relative;
   display: inline-block;
+  color: #FFFFFF;
   text-align: center;
+  position: relative;
+}
+
+nav a:after {
+  background: none repeat scroll 0 0 transparent;
+  content: "";
+  bottom: 0;
+  display: block;
+
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background-color: aqua;
+}
+
+nav a:hover ::after {
+  width: 100%;
+
 }
 
 
@@ -31,6 +48,7 @@ nav a {
   align-items: center;
   justify-content: space-around;
   height: 12vh;
+  font-family: 'Montserrat', sans-serif;
   
   background: linear-gradient(60deg, rgba(63,81,244,1) 0%, rgba(1,147,253,1) 100%);
 }
@@ -66,10 +84,12 @@ nav a {
     right: 0;
     height: 93vh;
     width: 50vw;
-    background: rgb(0, 33, 65);
+    background: linear-gradient(60deg, rgba(63,81,244,1) 0%, rgba(1,147,253,1) 100%);
     flex-direction: column;
     transform: translateX(100%);
     transition: 0.5s ease-in;
+    overflow: hidden;
+    z-index: 10;
   }
 }
 /* Active Class */

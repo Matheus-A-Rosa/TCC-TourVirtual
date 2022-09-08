@@ -7,7 +7,9 @@ export default function Content() {
         <div className='body'>
             <div className="header">
                 <div className="inner-header flex">
+                    <div className='image-container'>
                 <img className="house" src={HouseImage} alt="" />
+                </div>
                 </div>
 
                 <svg className="waves" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
