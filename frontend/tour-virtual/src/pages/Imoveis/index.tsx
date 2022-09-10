@@ -6,12 +6,12 @@ import EndPage from '../EndPage';
 import List from '../List';
 import ListPage from '../ListPage';
 
-export default function Home() {
+export default function Imovel() {
     return(
         <>
         <Navbar />
-        <Content />
-        <EndPage />
+        <List />
+        <ListPage />
         </>
     );
 }

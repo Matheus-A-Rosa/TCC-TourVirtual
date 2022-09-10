@@ -73,7 +73,7 @@ nav a:hover ::after {
   transition: 0.3s ease-in;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .nav__toggler {
     display: block;
     cursor: pointer;

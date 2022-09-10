@@ -1,15 +1,16 @@
-/* .container {
-    background-color: aquamarine;
-} */
+.container {
+    justify-content: right;
+    text-align: right;
+}
 
 .container-text {
-    margin-right: 5rem;
+    margin-right: -67rem;
     margin-bottom: 3rem;
 }
 
 .align-button {
     text-align: right;
-    margin-right: 5rem;
+    margin-right: 12rem;
 
 }
 

@@ -10,26 +10,26 @@ import br.com.pinkeritours.exception.NotFoundException;
 import br.com.pinkeritours.mapper.UsuarioMapper;
 import br.com.pinkeritours.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService /*implements UserDetailsService*/ {
 
   private final UsuarioRepository repository;
   private final UsuarioMapper mapper;
-  private final BCryptPasswordEncoder passwordEncoder;
+//  private final BCryptPasswordEncoder passwordEncoder;
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    return repository.findByEmail(username)
-        .orElseThrow(
-            () -> new UsernameNotFoundException(format("Usuário %s não encontrado", username)));
-  }
+//  @Override
+//  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//    return repository.findByEmail(username)
+//        .orElseThrow(
+//            () -> new UsernameNotFoundException(format("Usuário %s não encontrado", username)));
+//  }
 
   public UsuarioEntity findById(Long id) {
     return repository.findById(id)
@@ -39,7 +39,7 @@ public class UsuarioService implements UserDetailsService {
   public UsuarioResponseDTO registrar(UsuarioRequestDTO requestDTO) {
     UsuarioEntity entity = mapper.requestDtoToEntity(requestDTO);
     validaEmail(requestDTO.getEmail());
-    entity.setSenha(passwordEncoder.encode(requestDTO.getSenha()));
+//    entity.setSenha(passwordEncoder.encode(requestDTO.getSenha()));
     return mapper.entityToDTO(repository.save(entity));
   }
 

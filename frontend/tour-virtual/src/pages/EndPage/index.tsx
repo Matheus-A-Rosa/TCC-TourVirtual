@@ -4,6 +4,7 @@ import ButtonInfo from '../../Components/ButtonInfo';
 
 export default function EndPage() {
     return (
+        <>
         <div className='container'>
             <div className='container-text'>
                 <h1 className='color-one'>Venha ser nosso</h1>
@@ -13,10 +14,12 @@ export default function EndPage() {
                     sonho e venha nos fazer uma visitinha, quem sabe <br />
                     fazemos um tour especial para você.</p>
             </div>
-            <div className='align-button'>
+           
+        </div>
+        <div className='align-button'>
             <ButtonInfo />
             </div>
-        </div>
+        </>
 
     );
 }
