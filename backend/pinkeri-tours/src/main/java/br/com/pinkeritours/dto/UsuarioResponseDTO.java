@@ -1,5 +1,6 @@
 package br.com.pinkeritours.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -20,6 +21,6 @@ public class UsuarioResponseDTO {
   private String email;
   private String telefone;
   private String senha;
-//  private List<ImovelResponseDTO> imoveis;
+  private List<ImovelResponseDTO> imoveis;
 
 }

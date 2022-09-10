@@ -5,8 +5,21 @@
 .house {
     text-align: right;
     position: absolute;
-    left: 32rem;
-    margin-top: 15rem;
+    margin-top: -17%;
+    right: -4%;
+    
+}
+
+@media screen and (max-width: 900px) {
+    .house {
+        margin-top: 12%;
+        right: -18%;
+        position: relative;
+    }
+  }
+
+.image-container {
+float: right;
 }
 
 h1 {
@@ -24,7 +37,6 @@ p {
 .header {
     position: relative;
     text-align: center;
-    background: -o-linear-gradient(30deg, rgba(63,81,244,1) 0%, rgba(1,147,253,1) 100%);
     background: linear-gradient(60deg, rgba(63,81,244,1) 0%, rgba(1,147,253,1) 100%);
     color: #fff;
     overflow: hidden;

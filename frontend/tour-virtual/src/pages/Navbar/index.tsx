@@ -23,7 +23,7 @@ function Navbar() {
       </a>
       <ul className={active}>
         <li >
-          <a href="#" className="nav__link">
+          <a href="/" className="nav__link">
             Home
           </a>
         </li>
@@ -33,7 +33,7 @@ function Navbar() {
           </a>
         </li>
         <li className="hover">
-          <a href="#" className="nav__link">
+          <a href="imovel" className="nav__link">
             Imóveis
           </a>
         </li>

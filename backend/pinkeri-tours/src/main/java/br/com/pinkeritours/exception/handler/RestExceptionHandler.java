@@ -21,6 +21,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -54,6 +55,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     log.error("{}", error.getMessage());
     return ResponseEntity.status(status).body(error);
   }
+
+//  @ExceptionHandler(UsernameNotFoundException.class)
+//  public ResponseEntity<Object> handleUsernameNotFoundException(UsernameNotFoundException ex) {
+//    HttpStatus status = NOT_FOUND;
+//    StandardError error = new StandardError(status.value(), ex.getMessage());
+//
+//    log.error("{}", error.getMessage());
+//    return ResponseEntity.status(status).body(error);
+//  }
 
   @Override
   protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex,

@@ -1,0 +1,40 @@
+.container-space{
+    padding-bottom: 20px;
+    text-align: center;
+    background-color: aquamarine;
+}
+
+
+.card-style {
+    width: 80rem;
+    display: inline-block;
+    margin-right: 0rem;
+    padding: 5vw 0vw 5vw 0vw;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.image-style {
+    width: 24.5rem;
+    height: 24.5rem;
+    display: inline-block;
+    text-align: center;
+    border-radius: 0.3rem;
+}
+
+.alinhamento {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+}
+
+.title{
+    font-weight: bold;
+    text-align: left;
+}
+
+.last-info{
+    text-align: end;
+    justify-content: end;
+}

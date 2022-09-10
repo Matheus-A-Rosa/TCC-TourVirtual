@@ -5,23 +5,13 @@ import {
   Route,
 } from "react-router-dom";
 import Home from './pages/Home';
-import Profile from './pages/Navbar';
+import Imovel from './pages/Imoveis';
 
 export default function MainRoutes() {
   return(
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="profile" element={<Profile />} />
+      <Route path="imovel" element={<Imovel />} />
     </Routes>
   );
 }
-
-// const Routes = () => (
-//   <BrowserRouter>
-//     <Switch>
-//       <Route exat path='/' component={Home}/>
-//     </Switch>    
-//   </BrowserRouter>
-// ); 
-
-// export default Routes;

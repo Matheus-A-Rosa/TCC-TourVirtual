@@ -1,10 +1,10 @@
-.button-style {
+.styled-button {
     position: relative;
     text-align: center;
     width: 13rem;
     font-size: 1.3rem;
-    color: #FFFFFF;
-    border: 0.2rem solid #FFFFFF;
+    color: #3F51F4;
+    border: 0.2rem solid #3F51F4;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
     cursor: pointer;
