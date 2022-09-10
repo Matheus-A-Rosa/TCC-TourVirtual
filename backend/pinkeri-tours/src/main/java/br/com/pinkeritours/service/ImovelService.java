@@ -74,6 +74,6 @@ public class ImovelService {
   }
 
   private UsuarioEntity validaUsuario(Long idUsuario) {
-    return usuarioService.findById(idUsuario);
+    return usuarioService.buscarPorId(idUsuario);
   }
 }

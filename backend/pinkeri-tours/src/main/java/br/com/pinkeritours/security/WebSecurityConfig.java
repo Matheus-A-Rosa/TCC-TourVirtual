@@ -19,7 +19,7 @@ public class WebSecurityConfig {
         .and()
         .authorizeHttpRequests()
         .antMatchers(GET, "/v*/imoveis").permitAll()
-        .antMatchers(POST, "/v*/usuarios").permitAll()
+        .antMatchers(POST, "/v*/usuarios/*").permitAll()
         .anyRequest()
         .authenticated();
     return http.build();

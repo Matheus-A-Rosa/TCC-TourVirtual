@@ -57,7 +57,7 @@ class ImovelServiceTest {
     when(mapper.requestDtoToEntity(any(ImovelRequestDTO.class)))
         .thenReturn(entity);
     entity.setId(1L);
-    when(usuarioService.findById(anyLong()))
+    when(usuarioService.buscarPorId(anyLong()))
         .thenReturn(getUsuarioEntity());
     when(repository.save(any(ImovelEntity.class)))
         .thenReturn(entity);
@@ -96,21 +96,6 @@ class ImovelServiceTest {
         .isInstanceOf(ErrorBusinessException.class)
         .hasMessage("Status do imóvel inválido, favor informar se está a venda ou para alugar");
   }
-
-//  @Test
-//  void quandoSalvarComUsuarioInvalido_retornaNotFoundException() {
-//    ImovelEntity entity = getImovelEntity();
-//    ImovelRequestDTO requestDTO = getImovelRequestDTO();
-//
-//    when(mapper.requestDtoToEntity(any(ImovelRequestDTO.class)))
-//        .thenReturn(entity);
-//    when(usuarioRepository.findById(anyLong()))
-//        .thenReturn(Optional.empty());
-//
-//    assertThatThrownBy(() -> service.salvar(requestDTO))
-//        .isInstanceOf(NotFoundException.class)
-//        .hasMessage(String.format("Usuário %d não encontrado", 1L));
-//  }
 
   @Test
   void quandoBuscarImovelPorId_retornaErroNotFoundException() {
@@ -162,7 +147,7 @@ class ImovelServiceTest {
     Long idUsuario = anyLong();
     Pageable pageable = getPageable();
 
-    when(usuarioService.findById(idUsuario))
+    when(usuarioService.buscarPorId(idUsuario))
         .thenReturn(getUsuarioEntity());
     when(repository.buscarPorUsuario(pageable, idUsuario))
         .thenReturn(getPageImovelEntity());

@@ -31,7 +31,7 @@ public class UsuarioService implements UserDetailsService {
             () -> new UsernameNotFoundException(format("Usuário %s não encontrado", username)));
   }
 
-  public UsuarioEntity findById(Long id) {
+  public UsuarioEntity buscarPorId(Long id) {
     return repository.findById(id)
         .orElseThrow(() -> new NotFoundException(String.format("Usuário %d não encontrado", id)));
   }
