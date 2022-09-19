@@ -5,7 +5,6 @@ import static br.com.pinkeritours.uttils.UsuarioUtils.getUsuarioResponseDTO;
 import static br.com.pinkeritours.uttils.UsuarioUtils.getUsuarioResquestDTO;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
