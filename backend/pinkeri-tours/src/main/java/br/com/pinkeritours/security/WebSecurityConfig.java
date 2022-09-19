@@ -38,7 +38,7 @@ public class WebSecurityConfig {
         .addFilterBefore(new JwtTokenVerifierFilter(jwtConfig, jwtUtils),
             UsernamePasswordAuthenticationFilter.class)
         .authorizeHttpRequests()
-        .antMatchers(GET, "/v*/imoveis").permitAll()
+        .antMatchers(GET, "/v*/imoveis/**").permitAll()
         .antMatchers(POST, "/v*/usuarios/*").permitAll()
         .antMatchers(POST, jwtConfig.getLoginPath() + "/**").permitAll()
         .anyRequest()
