@@ -6,6 +6,7 @@ import static org.springframework.http.HttpMethod.POST;
 import br.com.pinkeritours.security.filter.JwtTokenVerifierFilter;
 import br.com.pinkeritours.security.filter.JwtUsernameAndPasswordAuthenticationFilter;
 import com.auth0.jwt.algorithms.Algorithm;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @RequiredArgsConstructor
@@ -30,6 +32,8 @@ public class WebSecurityConfig {
     filter.setFilterProcessesUrl(jwtConfig.getLoginPath());
 
     http
+        .cors().configurationSource(request -> corsConfiguration())
+        .and()
         .csrf().disable()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -44,6 +48,17 @@ public class WebSecurityConfig {
         .anyRequest()
         .authenticated();
     return http.build();
+  }
+
+  public CorsConfiguration corsConfiguration() {
+    CorsConfiguration corsConfiguration = new CorsConfiguration();
+    corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+    corsConfiguration.setAllowedOrigins(List.of("*"));
+    corsConfiguration.setAllowedMethods(
+        List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
+    corsConfiguration.setAllowCredentials(false);
+    corsConfiguration.setExposedHeaders(List.of("Authorization"));
+    return corsConfiguration;
   }
 
 }
