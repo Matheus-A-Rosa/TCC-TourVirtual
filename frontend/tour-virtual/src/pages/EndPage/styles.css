@@ -1,0 +1,37 @@
+.container {
+    justify-content: right;
+    text-align: right;
+}
+
+.container-text {
+    margin-right: -67rem;
+    margin-bottom: 3rem;
+}
+
+.align-button {
+    text-align: right;
+    margin-right: 12rem;
+
+}
+
+h1 {
+    margin-top: 3.5rem;
+    text-align: right;
+    margin: -0.2rem;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    text-align: right;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.color-one {
+    color: #0193FD;
+}
+
+.color-two {
+    color: #3F51F4;
+}

@@ -1,0 +1,19 @@
+.styled-button {
+    position: relative;
+    text-align: center;
+    width: 13rem;
+    font-size: 1.3rem;
+    color: #3F51F4;
+    border: 0.2rem solid #3F51F4;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+    border-radius: 5rem;
+   background: transparent;
+   transition: filter 0.3s;
+   font-family: 'Montserrat', sans-serif;
+}
+
+button:hover {
+    filter: brightness(0.2);
+}

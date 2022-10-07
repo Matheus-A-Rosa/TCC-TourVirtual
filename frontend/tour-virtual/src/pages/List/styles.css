@@ -1,0 +1,21 @@
+.container {
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form{
+    height: 5rem;
+    border: 0.1rem solid black;
+}
+
+
+.barra-pesquisa{ 
+    height: 5rem;
+    border: 0.1rem solid black;
+}
+
+.start {
+    width: 25rem;
+}

@@ -1,0 +1,110 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+}
+li {
+  list-style: none;
+}
+nav a {
+  text-decoration: none;
+  display: inline-block;
+  color: #FFFFFF;
+  text-align: center;
+  position: relative;
+}
+
+nav a:after {
+  background: none repeat scroll 0 0 transparent;
+  content: "";
+  bottom: 0;
+  display: block;
+
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background-color: aqua;
+}
+
+nav a:hover ::after {
+  width: 100%;
+
+}
+
+
+.logo {
+  width: 70%;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 12vh;
+  font-family: 'Montserrat', sans-serif;
+  
+  background: linear-gradient(60deg, rgba(63,81,244,1) 0%, rgba(1,147,253,1) 100%);
+}
+.nav__brand {
+  text-transform: uppercase;
+}
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 3rem;
+}
+.nav__toggler {
+  display: none;
+}
+.nav__toggler div {
+  width: 2.5rem;
+  height: 0.2rem;
+  margin: 0.4rem;
+  background: rgb(204, 204, 204);
+  transition: 0.3s ease-in;
+}
+
+@media screen and (max-width: 1000px) {
+  .nav__toggler {
+    display: block;
+    cursor: pointer;
+  }
+  .nav__menu {
+    position: fixed;
+    top: 7vh;
+    right: 0;
+    height: 93vh;
+    width: 50vw;
+    background: linear-gradient(60deg, rgba(63,81,244,1) 0%, rgba(1,147,253,1) 100%);
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: 0.5s ease-in;
+    overflow: hidden;
+    z-index: 10;
+  }
+}
+/* Active Class */
+.nav__active {
+  transform: translateX(0%);
+}
+
+/* Toggle Icon Animation */
+
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-4px, 5px);
+}
+.toggle .line2 {
+  opacity: 0;
+}
+.toggle .line3 {
+  transform: rotate(45deg) translate(-4px, -5px);
+}
