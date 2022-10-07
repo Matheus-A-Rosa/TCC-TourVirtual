@@ -1,9 +1,19 @@
 package br.com.pinkeritours.uttils;
 
+import br.com.pinkeritours.dto.UsuarioRequestDTO;
 import br.com.pinkeritours.dto.UsuarioResponseDTO;
 import br.com.pinkeritours.entity.UsuarioEntity;
 
 public abstract class UsuarioUtils {
+
+  public static UsuarioRequestDTO getUsuarioResquestDTO() {
+    return UsuarioRequestDTO.builder()
+        .nome("teste")
+        .email("teste@gmail.com")
+        .telefone("99999999999")
+        .senha("teste123")
+        .build();
+  }
 
   public static UsuarioResponseDTO getUsuarioResponseDTO() {
     return UsuarioResponseDTO.builder()

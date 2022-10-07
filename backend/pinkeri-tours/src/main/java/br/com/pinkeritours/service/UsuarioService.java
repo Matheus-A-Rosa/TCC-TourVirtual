@@ -12,7 +12,7 @@ public class UsuarioService {
 
   private final UsuarioRepository repository;
 
-  public UsuarioEntity findById(Long id) {
+  public UsuarioEntity buscarPorId(Long id) {
     return repository.findById(id)
         .orElseThrow(() -> new NotFoundException(String.format("Usuário %d não encontrado", id)));
   }
