@@ -34,14 +34,14 @@ public class ImovelController {
         .body(service.salvar(requestDTO));
   }
 
-  @GetMapping(path = "/{id}")
+  @GetMapping(path = "/id/{id}")
   public ResponseEntity<ImovelResponseDTO> buscarPorId(@PathVariable Long id) {
     return ResponseEntity
         .status(OK)
         .body(service.buscarPorId(id));
   }
 
-  @GetMapping
+  @GetMapping("/busca")
   public ResponseEntity<List<ImovelResponseDTO>> buscar(
       @RequestParam String tipo,
       @RequestParam String status,
@@ -52,6 +52,13 @@ public class ImovelController {
     return ResponseEntity
         .status(OK)
         .body(service.buscar(tipo, status, cidade, bairro, valorInicial, valorFinal));
+  }
+
+  @GetMapping
+  public ResponseEntity<List<ImovelResponseDTO>> findAll() {
+    return ResponseEntity
+        .status(OK)
+        .body(service.listar());
   }
 
 }

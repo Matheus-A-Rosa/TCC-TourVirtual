@@ -69,4 +69,9 @@ public class ImovelService {
   private UsuarioEntity validaUsuario(Long idUsuario) {
     return usuarioService.buscarPorId(idUsuario);
   }
+
+  public List<ImovelResponseDTO> listar() {
+    List<ImovelEntity> imoveis = repository.findAll();
+    return mapper.entityListToResponseDTO(imoveis);
+  }
 }
