@@ -54,4 +54,8 @@ public class ImovelRequestDTO {
   @NotNull(message = "campo endereco é obrigatório")
   private EnderecoDTO endereco;
 
+  @NotNull
+  @JsonProperty("url_imagem")
+  private String urlImagem;
+
 }

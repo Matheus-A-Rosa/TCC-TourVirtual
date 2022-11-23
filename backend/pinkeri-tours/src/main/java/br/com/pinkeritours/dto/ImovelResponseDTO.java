@@ -31,6 +31,8 @@ public class ImovelResponseDTO {
   private String descricao;
   private String status;
   private Boolean ativado;
+  @JsonProperty("url_imagem")
+  private String urlImagem;
   private EnderecoDTO endereco;
 
 }

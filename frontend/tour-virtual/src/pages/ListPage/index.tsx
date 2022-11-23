@@ -13,10 +13,10 @@ export default function ListPage() {
 
     useEffect(() => {
         api.get("/", {
-            params: {
-                tipo: 'casa',
-                status: 'venda'
-            }
+            // params: {
+            //     tipo: 'apartamento',
+            //     status: 'venda'
+            // }
         })
             .then(response => {
                 console.log(response.data);
@@ -29,16 +29,15 @@ export default function ListPage() {
 
     }, [])
 
-
-
     return (
 
         <>
             {infos.map((info, key) => {
                 return (
                     <>
+                        {/* <button onClick={test}>Mock</button> */}
                         <div className='alinhamento'>
-                        <Image className='image-style' src="https://scontent.ffln1-1.fna.fbcdn.net/v/t1.6435-9/173278965_3489520411149917_7203727049437039434_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeHnBoF26YGmMWnGTSzsqHBIyAIrfbpdcvjIAit9ul1y-NbxxV0zjqOePJXYe4k09SQlnA9OsTEnV3_U2nf7DfYc&_nc_ohc=OzYLjFSab2wAX_DVe-4&_nc_ht=scontent.ffln1-1.fna&oh=00_AT_BTnilAAsVNMHPIXle5pbcp6Is6kvspBkOphT0iEy_zA&oe=6340AFC5" />
+                        <Image className='image-style' src={info.url_imagem} />
                         <Card className='card-style'>
                             <Card.Body>
                                 <Card.Title>{info.endereco.rua + " /"} {info.endereco.complemento + " /"}

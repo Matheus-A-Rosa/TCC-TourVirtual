@@ -49,6 +49,8 @@ public class ImovelEntity implements Serializable {
   private String descricao;
   private String status;
   private Boolean ativado;
+    @Column(name = "url_imagem")
+  private String urlImagem;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "id_usuario")

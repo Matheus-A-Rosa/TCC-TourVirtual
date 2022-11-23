@@ -142,20 +142,5 @@ class ImovelServiceTest {
         .hasSize(1);
   }
 
-  @Test
-  void quandoBuscarImovelPorUsuario_retornaSucesso() {
-    Long idUsuario = anyLong();
-    Pageable pageable = getPageable();
 
-    when(usuarioService.buscarPorId(idUsuario))
-        .thenReturn(getUsuarioEntity());
-    when(repository.buscarPorUsuario(pageable, idUsuario))
-        .thenReturn(getPageImovelEntity());
-    when(mapper.toPageResponseDto(any()))
-        .thenReturn(getPageImovelResponseDTO());
-
-    assertThat(service.buscarPorUsuario(pageable, idUsuario))
-        .isNotNull()
-        .hasSize(1);
-  }
 }
