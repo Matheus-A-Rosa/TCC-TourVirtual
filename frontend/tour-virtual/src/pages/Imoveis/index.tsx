@@ -10,7 +10,7 @@ export default function Imovel() {
     return(
         <>
         <Navbar />
-        <List />
+        {/* <List /> */}
         <ListPage />
         </>
     );

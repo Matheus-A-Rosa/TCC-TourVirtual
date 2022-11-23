@@ -1,6 +1,7 @@
 import React from 'react';
 import "../Content/styles.css";
 import HouseImage from "../../assets/house.png";
+import Image from 'react-bootstrap/Image';
 
 export default function Content() {
     return (
@@ -8,7 +9,7 @@ export default function Content() {
             <div className="header">
                 <div className="inner-header flex">
                     <div className='image-container'>
-                <img className="house" src={HouseImage} alt="" />
+                <Image className="house" src={HouseImage} alt="" />
                 </div>
                 </div>
 

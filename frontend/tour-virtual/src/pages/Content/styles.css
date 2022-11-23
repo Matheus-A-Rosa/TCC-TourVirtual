@@ -10,13 +10,7 @@
     
 }
 
-@media screen and (max-width: 900px) {
-    .house {
-        margin-top: 12%;
-        right: -18%;
-        position: relative;
-    }
-  }
+
 
 .image-container {
 float: right;
